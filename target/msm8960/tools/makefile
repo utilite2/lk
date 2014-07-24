@@ -3,7 +3,11 @@
 ifeq ($(BOOTLOADER_OUT),.)
 APPSBOOTHEADER_DIR  := $(BUILDDIR)
 else
+ifdef APPSBOOT_OUT
+APPSBOOTHEADER_DIR  := $(APPSBOOT_OUT)
+else
 APPSBOOTHEADER_DIR  := $(BOOTLOADER_OUT)/../..
+endif
 endif
 
 SRC_DIR  := target/$(TARGET)/tools
