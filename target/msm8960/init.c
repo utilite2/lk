@@ -298,6 +298,7 @@ void target_uart_init(void)
 		uart_dm_init(3, 0x16200000, 0x16240000);
 		break;
 
+	case LINUX_MACHTYPE_8064_CM_QS600:
 	case LINUX_MACHTYPE_8064_CDP:
 	case LINUX_MACHTYPE_8064_MTP:
 	case LINUX_MACHTYPE_8064_LIQUID:
@@ -406,6 +407,9 @@ void target_detect(struct board_data *board)
 	} else if ((platform == APQ8064) || (platform == APQ8064AA)
 					 || (platform == APQ8064AB)) {
 		switch (platform_hw) {
+		case HW_PLATFORM_OEM:
+			target_id = LINUX_MACHTYPE_8064_CM_QS600;
+			break;
 		case HW_PLATFORM_SURF:
 			target_id = LINUX_MACHTYPE_8064_CDP;
 			break;
