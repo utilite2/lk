@@ -333,6 +333,21 @@ void display_init(void)
 
 		hdmi_set_fb_addr(panel.fb.base);
 		break;
+	case LINUX_MACHTYPE_8064_CM_QS600:
+		hdmi_msm_panel_init(&panel.panel_info);
+
+		panel.clk_func   = mpq8064_hdmi_panel_clock;
+		panel.power_func = mpq8064_hdmi_panel_power;
+		panel.fb.base    = 0x80B00000;
+		panel.fb.width   = panel.panel_info.xres;
+		panel.fb.height  = panel.panel_info.yres;
+		panel.fb.stride  = panel.panel_info.xres;
+		panel.fb.bpp     = panel.panel_info.bpp;
+		panel.fb.format  = FB_FORMAT_RGB565;
+		panel.mdp_rev    = MDP_REV_44;
+
+		hdmi_set_fb_addr(panel.fb.base);
+		break;
 	default:
 		return;
 	};
