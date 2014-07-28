@@ -1,4 +1,4 @@
-# top level project rules for the msm8960_virtio project
+# top level project rules for the cm-qs600 project
 #
 LOCAL_DIR := $(GET_LOCAL_DIR)
 
