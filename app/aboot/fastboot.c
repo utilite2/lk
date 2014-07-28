@@ -290,10 +290,25 @@ static void cmd_download(const char *arg, void *data, unsigned sz)
 	fastboot_okay("");
 }
 
+static void fastboot_print_cmdlist(void)
+{
+	struct fastboot_cmd *cmd;
+	const char *comma = ", ";
+
+	dprintf(INFO, "fastboot: supported commands: ");
+
+	for (cmd = cmdlist; cmd; cmd = cmd->next)
+		printf("%s%s", cmd->prefix, cmd->next ? comma : "");
+
+	puts("\n");
+}
+
 static void fastboot_command_loop(void)
 {
 	struct fastboot_cmd *cmd;
 	int r;
+
+	fastboot_print_cmdlist();
 	dprintf(INFO,"fastboot: processing commands\n");
 
 again:
