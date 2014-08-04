@@ -126,3 +126,32 @@ uint32_t board_pmic_ver()
 {
 	return board.pmic_version;
 }
+
+#ifdef WITH_LIB_CONSOLE
+#include <lib/console.h>
+
+int cmd_target_id(int argc, const cmd_args *argv)
+{
+	if (argc > 2) {
+		printf("too many arguments\n");
+		printf("usage: %s <target id>\n", argv[0].str);
+		return -1;
+	}
+
+	if (argc == 2) {
+		board.target = argv[1].u;
+		printf("new ");
+	}
+
+	printf("target id: %u\n", board.target);
+
+	return 0;
+}
+
+STATIC_COMMAND_START
+#if DEBUGLEVEL > 0
+	{ "targetid", "display or set the target id", &cmd_target_id },
+#endif
+STATIC_COMMAND_END(target);
+
+#endif /* WITH_LIB_CONSOLE */
