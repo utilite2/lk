@@ -86,7 +86,7 @@ LINKER_SCRIPT :=
 GENERATED := $(CONFIGHEADER)
 
 # anything added to DEFINES will be put into $(BUILDDIR)/config.h
-DEFINES := LK=1				
+DEFINES := LK=1
 
 # Anything added to SRCDEPS will become a dependency of every source file in the system.
 # Useful for header files that may be included by one or more source files.
