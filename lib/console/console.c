@@ -247,6 +247,9 @@ static void console_loop(void)
 		if (len == 0)
 			continue;
 
+		/* do not write over the input line */
+		printf("\n");
+
 //		printf("line = '%s'\n", buffer);
 
 		/* tokenize the line */
