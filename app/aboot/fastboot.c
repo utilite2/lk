@@ -395,6 +395,7 @@ int fastboot_init(void *base, unsigned size)
 	fastboot_register("getvar:", cmd_getvar);
 	fastboot_register("download:", cmd_download);
 	fastboot_publish("version", LK_VERSION);
+	fastboot_publish("buildtime", TIMESTAMP);
 
 	thr = thread_create("fastboot", fastboot_handler, 0, DEFAULT_PRIORITY, 4096);
 	if (!thr)

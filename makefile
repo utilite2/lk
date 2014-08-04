@@ -9,6 +9,7 @@ LOCALVERSION =
 BASEVERSION = $(MAJOR).$(MINOR)$(if $(SUBLEVEL),.$(SUBLEVEL))
 EXTRAVERSION = $(if $(HWNAME),$(HWNAME)$(if $(LOCALVERSION),-$(LOCALVERSION)))
 LKVERSION = $(BASEVERSION)$(if $(EXTRAVERSION),-$(EXTRAVERSION))
+BUILD_TIMESTAMP = $(shell date +'"%b %d %C%y - %T"')
 
 ifeq ($(MAKECMDGOALS),spotless)
 spotless:
@@ -190,6 +191,7 @@ $(CONFIGHEADER): configheader
 	echo \#ifndef __CONFIG_H > $(CONFIGHEADER).tmp; \
 	echo \#define __CONFIG_H >> $(CONFIGHEADER).tmp; \
 	echo \#define LK_VERSION \"$(LKVERSION)\" >> $(CONFIGHEADER).tmp; \
+	echo \#define TIMESTAMP \"$(BUILD_TIMESTAMP)\" >> $(CONFIGHEADER).tmp; \
 	for d in `echo $(DEFINES) | tr [:lower:] [:upper:]`; do \
 		echo "#define $$d" | sed "s/=/\ /g;s/-/_/g;s/\//_/g" >> $(CONFIGHEADER).tmp; \
 	done; \
