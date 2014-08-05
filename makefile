@@ -3,8 +3,8 @@
 MAJOR = 0
 MINOR = 5
 SUBLEVEL =
-HWNAME = 
-LOCALVERSION = 
+HWNAME = cm-qs600
+LOCALVERSION = 1
 SCMVERSION = '$(shell scripts/setlocalversion .)'
 
 BASEVERSION = $(MAJOR).$(MINOR)$(if $(SUBLEVEL),.$(SUBLEVEL))
