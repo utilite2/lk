@@ -159,17 +159,11 @@ void target_init(void)
 		/* Enable Hardware CE */
 		platform_ce_type = CRYPTO_ENGINE_TYPE_HW;
 
-	/* Trying Slot 1 first */
-	slot = 1;
+	slot = 3;
 	base_addr = mmc_sdc_base[slot - 1];
 	if (mmc_boot_main(slot, base_addr)) {
-		/* Trying Slot 3 next */
-		slot = 3;
-		base_addr = mmc_sdc_base[slot - 1];
-		if (mmc_boot_main(slot, base_addr)) {
-			dprintf(CRITICAL, "mmc init failed!");
-			ASSERT(0);
-		}
+		dprintf(CRITICAL, "mmc init failed!");
+		ASSERT(0);
 	}
 }
 
