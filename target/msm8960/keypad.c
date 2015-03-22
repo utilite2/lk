@@ -33,10 +33,13 @@
 #include <dev/ssbi.h>
 #include <dev/gpio_keypad.h>
 #include <dev/pm8921.h>
+#include <platform/iomap.h>
 #include <platform/gpio.h>
 #include <sys/types.h>
+#include <reg.h>
 #include <board.h>
 #include <smem.h>
+#include <target/board.h>
 
 #define BITS_IN_ELEMENT(x) (sizeof(x) * 8)
 #define KEYMAP_INDEX(row, col) (row)* BITS_IN_ELEMENT(unsigned int) + (col)
@@ -192,4 +195,23 @@ void keypad_led_drv_on_pwm(void)
 	{
 	dprintf(CRITICAL, "FAIL pm8921_gpio_config(): rc=%d.\n", rc);
 	}
+}
+
+int fastboot_trigger(void)
+{
+	int ret;
+	unsigned target_id = board_machtype();
+
+	switch (target_id) {
+	case LINUX_MACHTYPE_8064_CM_QS600:
+		gpio_tlmm_config(27, 0, GPIO_INPUT, GPIO_PULL_UP,
+				 GPIO_2MA, GPIO_DISABLE);
+		ret = !readl(GPIO_IN_OUT_ADDR(27));
+		break;
+	default:
+		dprintf(INFO, "no fastboot trigger defined for target: %d\n",
+			target_id);
+	}
+
+	return ret;
 }

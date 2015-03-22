@@ -9,4 +9,5 @@ MODULES += app/aboot app/shell
 DEBUG := 1
 
 DEFINES += WITH_DEBUG_UART=1
+DEFINES += NO_KEYPAD_DRIVER=1
 ENABLE_THUMB := false
