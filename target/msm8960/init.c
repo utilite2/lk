@@ -69,10 +69,12 @@ static pm8921_dev_t pmic;
  */
 static crypto_engine_type platform_ce_type = CRYPTO_ENGINE_TYPE_SW;
 
+static void target_leds_init(void);
 static void target_uart_init(void);
 
 void target_early_init(void)
 {
+	target_leds_init();
 #if WITH_DEBUG_UART
 	target_uart_init();
 #endif
@@ -261,6 +263,22 @@ void target_fastboot_init(void)
 {
 	/* Set the BOOT_DONE flag in PM8921 */
 	pm8921_boot_done();
+}
+
+static void target_leds_init(void)
+{
+	unsigned target_id = board_machtype();
+
+	switch (target_id) {
+	case LINUX_MACHTYPE_8064_CM_QS600:
+		gpio_tlmm_config(28, 0, GPIO_OUTPUT,
+				 GPIO_NO_PULL, GPIO_2MA, GPIO_ENABLE);
+		/* GPIO set output low */
+		gpio_set(28, 0 << GPIO_OUTPUT);
+		break;
+	default:;
+	/* this can be used before the uart is initialized - don't print */
+	}
 }
 
 void target_uart_init(void)
