@@ -206,7 +206,7 @@ int fastboot_trigger(void)
 	case LINUX_MACHTYPE_8064_CM_QS600:
 		gpio_tlmm_config(27, 0, GPIO_INPUT, GPIO_PULL_UP,
 				 GPIO_2MA, GPIO_DISABLE);
-		ret = !readl(GPIO_IN_OUT_ADDR(27));
+		ret = !gpio_get(27);
 		break;
 	default:
 		dprintf(INFO, "no fastboot trigger defined for target: %d\n",

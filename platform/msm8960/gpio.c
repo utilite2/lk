@@ -56,6 +56,16 @@ void gpio_set(uint32_t gpio, uint32_t dir)
 	return;
 }
 
+int gpio_get(uint32_t gpio)
+{
+	unsigned int dir_out = (readl(GPIO_CONFIG_ADDR(gpio)) >> 9) & 0x1;
+
+	if (dir_out)
+		return (readl(GPIO_IN_OUT_ADDR(gpio)) >> 1) & 0x1;
+
+	return readl(GPIO_IN_OUT_ADDR(gpio)) & 0x1;
+}
+
 /* TODO: this and other code below in this file should ideally by in target dir.
  * keeping it here for this brigup.
  */
